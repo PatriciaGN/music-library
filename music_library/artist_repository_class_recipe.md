@@ -71,6 +71,14 @@ Using comments, define the method signatures (arguments and return value) and wh
 # EXAMPLE
 # Table name: artists
 
+# Model class
+# (in lib/artist.rb)
+```ruby
+class Artist
+  attr_accessor :id, :name, :genre
+end
+```
+
 # Repository class
 # (in lib/artists_repository.rb)
 ```ruby
@@ -84,6 +92,13 @@ class ArtistsRepository
 
     # Returns an array of Artist objects.
   end
+  
+  # Select a single record
+  # Given the id in argument (a number)
+  def find(id)
+    # Executes the SQL query:
+    # SELECT id, name, genre FROM artists WHERE id = $1
+    # Returns a single artist object
 end
 ```
 
@@ -115,16 +130,14 @@ artists = repo.all #=> []
 ```
 
 
-# 2
-# Get a single student
+  # 2
+  # Get a single artist
 
-repo = StudentRepository.new
+  repo = ArtistRepository.new
 
-student = repo.find(1)
-
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
+  artist = repo.find(1)
+  artist.name #=> "Halestorm
+  artist.genre #=> "Rock"
 ```
 
 
@@ -141,17 +154,36 @@ This is so you get a fresh table contents every time you run the test suite.
 # file: spec/student_repository_spec.rb
 
 def reset_albums_table
-  seed_sql = File.read('spec/seeds_albums.sql')
+  seed_sql = File.read('spec/seeds_artists.sql')
   connection = PG.connect({ host: '127.0.0.1', dbname: 'music_library_test' })
   connection.exec(seed_sql)
 end
 
-describe StudentRepository do
+describe ArtistRepository do
   before(:each) do 
-    reset_students_table
+    reset_artists_table
   end
+  
+  # 1
+  # Gets all artists
 
-  # (your tests will go here).
+  repo = ArtistsRepository.new
+
+  artists = repo.all
+  artists.length #=> 1
+  artists.first.id #=> "1"
+  aerists.first.name #=> "Halestorm"
+
+  # 2
+  # Get a single artist
+
+  repo = ArtistRepository.new
+
+  artist = repo.find(1)
+  artist.name #=> "Halestorm
+  artist.genre #=> "Rock"
+
+
 end
 8. Test-drive and implement the Repository class behaviour
 After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour.

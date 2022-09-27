@@ -30,5 +30,15 @@ RSpec.describe AlbumsRepository do
         albums = repo.all #=> []
         # We would need a seed that only truncates the tables but doesn't add any data.
     end
+
+    describe "#find" do
+        it "gets a single artist" do
+          repo = AlbumsRepository.new
+    
+          album = repo.find(1)
+          expect(album.title).to eq "The strange case of..."
+          expect(album.release_year).to eq "2012"
+        end
+    end
    end
 end

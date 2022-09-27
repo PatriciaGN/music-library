@@ -1,11 +1,12 @@
 require_relative 'lib/database_connection'
-require_relative 'lib/artist_repository'
+require_relative 'lib/artists_repository'
+require_relative 'lib/albums_repository'
 
 # We need to give the database name to the method `connect`.
 DatabaseConnection.connect('music_library')
 
 
-artist_repository = ArtistsRepository.new
+artists_repository = ArtistsRepository.new
 albums_repository = AlbumsRepository.new
 
 # Perform a SQL query on the database and get the result set.
@@ -13,11 +14,18 @@ albums_repository = AlbumsRepository.new
 # result = DatabaseConnection.exec_params(sql, [])
 
 # Print out each record from the result set .
-artist_repository.all.each do |artist|
+artists_repository.all.each do |artist|
   p artist
 end
 
-album_repository.all.each do |album|
+albums_repository.all.each do |album|
   p album
 end
 
+artist = artists_repository.find(1)
+
+puts artist.name
+
+albums = albums_repository.find(1)
+
+puts albums.title

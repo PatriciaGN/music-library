@@ -97,6 +97,8 @@ class AlbumsRepository
 
     # Returns an array of Albums objects.
   end
+
+
 end
 ```
 
@@ -129,17 +131,14 @@ albums = repo.all #=> []
 ```
 
 
-# 2
-# Get a single student
+  # 2
+  # Get a single album
 
-repo = StudentRepository.new
+  repo = AlbumRepository.new
 
-student = repo.find(1)
-
-student.id # =>  1
-student.name # =>  'David'
-student.cohort_name # =>  'April 2022'
-```
+  album = repo.find(1)
+  album.title #=> "The strange case of..."
+  album.release_year #=> "2012"
 
 
 # Add more examples for each method
@@ -152,7 +151,7 @@ This is so you get a fresh table contents every time you run the test suite.
 
 # EXAMPLE
 
-# file: spec/student_repository_spec.rb
+# file: spec/album_repository_spec.rb
 
 def reset_albums_table
   seed_sql = File.read('spec/seeds_albums.sql')
@@ -164,8 +163,32 @@ describe StudentRepository do
   before(:each) do 
     reset_students_table
   end
+  describe "#all" do
+   it 'returns two albums' do
+        repo = AlbumsRepository.new
+        albums = repo.all
+        expect(albums.length).to eq 2
+        expect(albums.first.title).to eq "The strange case of..."
+        expect(albums.first.release_year).to eq "2012"
+        expect(albums.first.artist_id).to eq "1"
+    end
 
-  # (your tests will go here).
+    it "when there are no albums in the DB" do
+        repo = AlbumsRepository.new
+        albums = repo.all #=> []
+        # We would need a seed that only truncates the tables but doesn't add any data.
+    end
+  end
+
+  describe "#find" do
+    it "gets a single artist" do
+      repo = AlbumRepository.new
+
+      album = repo.find(1)
+      expect(album.title).to eq "The strange case of..."
+      expect(album.release_year).to eq "2012"
+    end
+  end
 end
 8. Test-drive and implement the Repository class behaviour
 After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour.
