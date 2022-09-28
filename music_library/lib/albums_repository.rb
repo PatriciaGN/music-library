@@ -29,7 +29,7 @@ class AlbumsRepository
         
         album = Album.new
         album.id = record['id']
-        album.title = record['title']
+        album.title = recappord['title']
         album.release_year = record['release_year']
 
         return album
