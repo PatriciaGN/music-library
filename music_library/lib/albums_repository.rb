@@ -29,9 +29,24 @@ class AlbumsRepository
         
         album = Album.new
         album.id = record['id']
-        album.title = recappord['title']
+        album.title = record['title']
         album.release_year = record['release_year']
 
         return album
+    end
+
+    def create(album)
+        sql = "INSERT INTO albums (title, release_year, artist_id) VALUES ($1, $2, $3)"
+        sql_params = [album.title, album.release_year, album.artist_id]
+
+        DatabaseConnection.exec_params(sql, sql_params)
+        
+        # album = Album.new               WE DON'T NEED ANY OF THIS AS IT IS GIVEN IN THE TEST
+        # album.id = record['id']
+        # album.title = record['title']
+        # album.release_year = record['release_year']
+        # album.artist_id = record['artist_id']
+
+        return nil # This line is just for us to know it's not returning anything, but it's not essential
     end
 end

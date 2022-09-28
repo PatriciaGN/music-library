@@ -53,8 +53,11 @@ RSpec.describe AlbumsRepository do
         repository.create(album)
 
         all_albums = repository.all
+        last_albums = all_albums.last
 
-        expect(all_albums).to include album
+        expect(last_albums.title).to eq "Trompe le Monde"
+        expect(last_albums.release_year).to eq "1991"
+        expect(last_albums.artist_id).to eq "1"
       end
    end
   end
