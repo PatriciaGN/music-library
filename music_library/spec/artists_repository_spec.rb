@@ -58,4 +58,22 @@ RSpec.describe ArtistsRepository do
       expect(all_artists.length).to eq 1
     end
   end
+
+  describe "#update" do
+    it "updates a artist" do
+        repo = UsersRepository.new
+
+        artist = repo.find(1)
+
+        artist.name = "updated name"
+        artist.genre "updated genre"
+        
+        repo.update(artist)
+
+        updated_artist = repo.find(1)
+
+        expect(updated_artist.name).to eq "updated name" 
+        expect(updated_artist.genre).to eq "updated genre" 
+    end
+  end
 end
