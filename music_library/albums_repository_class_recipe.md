@@ -98,6 +98,26 @@ class AlbumsRepository
     # Returns an array of Albums objects.
   end
 
+   def create(album)
+  # Insert a new album record
+  # Takes an Album object in argument
+
+  # Executes the SQL query: "INSERT INTO albums (title, release_year, artist_id) VALUES($1, $2, $3);"
+  # Doesn't return anything (only creates the record)
+  end
+
+  def delete(id)
+  # Deletes an album record given its id
+  # Executes the SQL: "DELETE FROM albums WHERE id = $1;"
+  # Returns nothing (only deletes the record)
+  end
+
+  def update(album)
+  # Updates an album record
+  # Takes an Album object (with the updated fields)
+  # Executes the SQL: "UPDATE albums SET title = $1, release_year = $2 artist_id = $3, id = $4;"
+  # Returns nothing (only updates the record)
+  end
 
 end
 ```
@@ -131,14 +151,57 @@ albums = repo.all #=> []
 ```
 
 
-  # 2
-  # Get a single album
+# 2
+# Get a single album
 
-  repo = AlbumRepository.new
+repo = AlbumRepository.new
 
-  album = repo.find(1)
-  album.title #=> "The strange case of..."
-  album.release_year #=> "2012"
+album = repo.find(1)
+album.title #=> "The strange case of..."
+album.release_year #=> "2012"
+
+# 3 Creates a new album object with its atributes
+
+repository = AlbumsRepository.new
+
+album = Album.new
+album.title = "Trompe le Monde"
+album.release_year = 1991
+album.artist_id = 1
+
+repository.create(album)
+
+all_albums = repository.all
+last_albums = all_albums.last
+
+album.title = "Vicious"
+album.release_year = "2018"
+album.artist_id = 1
+  
+# 4 Deletes an album
+describe "#delete" do
+it "deletes album with id 1"
+repo = AlbumRepository.new
+
+id_to_delete = 1
+
+repo.delete(id_to_delete)
+
+all_albums = repo.all
+all_albums.length #=> 0
+
+# 5 Updates an album
+      repo = ArtistRepository.new
+
+      updated_artist = repo.find(1)
+      
+      updated_artist.name = "Wargasm"
+      updated_artist.genre = "Metalcore"
+
+      repo.update(artist)
+
+      expect(artist.name).to eq "Wargasm"
+      expect(artist.genre).to eq "Metalcore"
 
 
 # Add more examples for each method
@@ -181,7 +244,7 @@ describe StudentRepository do
   end
 
   describe "#find" do
-    it "gets a single artist" do
+    it "gets a single album" do
       repo = AlbumRepository.new
 
       album = repo.find(1)
@@ -190,6 +253,62 @@ describe StudentRepository do
     end
   end
 end
+
+    describe "#create" do
+      it "creates a new album object with its atributes" do
+        repository = AlbumsRepository.new
+
+        album = Album.new
+        album.title = "Trompe le Monde"
+        album.release_year = 1991
+        album.artist_id = 1
+
+        repository.create(album)
+
+        all_albums = repository.all
+        last_albums = all_albums.last
+
+        expect(last_albums.title).to eq "Trompe le Monde"
+        expect(last_albums.release_year).to eq "1991"
+        expect(last_albums.artist_id).to eq "1"
+      end
+    end
+
+    describe "#delete" do
+      it "deletes artist with id 1"
+        repo = ArtistRepository.new
+
+        id_to_delete = 1
+
+        repo.delete(id_to_delete)
+
+        all_albums = repo.all
+        all_albums.length #=>1
+        all_albums.first.id #=>2
+      end
+    end
+
+    describe "#update" do
+     it "updates a record" do
+      repo = AlbumsRepository.new
+
+      updated_album = repo.find(1)
+      
+      updated_album.title = "Vicious"
+      updated_album.release_date = "2019"
+
+      repo.update(artist)
+
+      expect(album.title).to eq "Wargasm"
+      expect(album.release_date).to eq "2019"
+     end
+    end
+   
+
+      UPSERT method - We can use it to update if the record exists or create it if it doesn't. For example:
+
+      FOREIGN KEY CONSTRAINTS - It's just telling sql that the foreign key needs to be related to an id in a different table
+      
 8. Test-drive and implement the Repository class behaviour
 After each test you write, follow the test-driving process of red, green, refactor to implement the behaviour.
 

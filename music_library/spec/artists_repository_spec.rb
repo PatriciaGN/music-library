@@ -27,4 +27,35 @@ RSpec.describe ArtistsRepository do
        expect(artist.genre).to eq "Rock"
     end
    end
+
+   describe "#Create" do
+    it "adds a new artist to the table" do
+      repository = ArtistsRepository.new
+
+      artist = Artist.new
+      artist.name = "Beetles"
+      artist.genre = "Pop"
+
+      repository.create(artist)
+
+      all_artists = repository.all
+      last_artist = all_artists.last
+
+      expect(artist.name).to eq "Beetles"
+      expect(artist.genre).to eq "Pop"
+    end
+  end
+
+  describe "#Delete" do
+    it "deletes artist with id 1" do
+      repo = ArtistsRepository.new
+
+      id_to_delete = 1
+
+      repo.delete(id_to_delete)
+
+      all_artists = repo.all
+      expect(all_artists.length).to eq 1
+    end
+  end
 end

@@ -49,4 +49,20 @@ class AlbumsRepository
 
         return nil # This line is just for us to know it's not returning anything, but it's not essential
     end
+
+    def delete(id)
+        sql = "DELETE FROM albums WHERE id = $1;"
+        sql_params = [id]
+
+        DatabaseConnection.exec_params(sql, sql_params)
+        
+        return nil
+    end
+      
+    def update(album)
+        # Updates an album record
+        # Takes an Album object (with the updated fields)
+        # Executes the SQL: "UPDATE albums SET title = $1, release_year = $2 artist_id = $3, id = $4;"
+        # Returns nothing (only updates the record)
+     end
 end

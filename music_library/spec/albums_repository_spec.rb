@@ -59,6 +59,19 @@ RSpec.describe AlbumsRepository do
         expect(last_albums.release_year).to eq "1991"
         expect(last_albums.artist_id).to eq "1"
       end
-   end
+    end
+
+    describe "#delete" do
+      it "deletes artist with id 1" do
+        repo = AlbumsRepository.new
+
+        id_to_delete = 1
+
+        repo.delete(id_to_delete)
+
+        all_albums = repo.all
+        expect(all_albums.length).to eq 1 #=0
+      end
+    end
   end
 end
