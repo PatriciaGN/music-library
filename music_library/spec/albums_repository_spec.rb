@@ -1,4 +1,5 @@
 require_relative '../lib/albums_repository.rb'
+require_relative "../lib/database_connection.rb"
 
 RSpec.describe AlbumsRepository do   
   def reset_albums_table
