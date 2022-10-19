@@ -32,12 +32,12 @@ describe('Thermostat', () => {
       expect(thermostat.getTemperature()).toBe(25);
     });
 
-    it('should set the powerSavingMode off and max temperature to 25', () => {
-      thermostat.setPowerSavingMode(true);
+    it('should set the powerSavingMode off and max temperature to 32', () => {
+      thermostat.setPowerSavingMode(false);
       for (let i = 0; i < 10; i++) {
         thermostat.up();
       }
-      expect(thermostat.getTemperature()).toBe(25);
+      expect(thermostat.getTemperature()).toBe(32);
     });
   });
 });
