@@ -10,6 +10,7 @@ class Thermostat {
 
   up() {
     if (this.powerSavingMode === true && this.temperature >= 25) {
+    } else if (this.powerSavingMode === false && this.temperature >= 32) {
     } else {
       this.temperature += 1;
     }
@@ -17,6 +18,10 @@ class Thermostat {
 
   down() {
     this.temperature -= 1;
+  }
+
+  setPowerSavingMode(boolean) {
+    this.powerSavingMode = boolean;
   }
 }
 
