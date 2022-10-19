@@ -32,8 +32,13 @@ describe('Thermostat', () => {
       expect(thermostat.getTemperature()).toBe(25);
     });
 
-    it('should set the powerSavingMode off and max temperature to 32', () => {
+    it('should set the powerSavingMode off and return 26 when used up', () => {
       thermostat.setPowerSavingMode(false);
+      thermostat.up();
+      expect(thermostat.getTemperature()).toBe(26);
+    });
+
+    it('should be able to go up to the max temperature as PWS off', () => {
       for (let i = 0; i < 10; i++) {
         thermostat.up();
       }
