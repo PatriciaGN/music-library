@@ -16,4 +16,11 @@ describe('Thermostat', () => {
       expect(thermostat.getTemperature()).toBe(22);
     });
   });
+
+  describe('down', () => {
+    it('should give a temperature of 21 when the method down is called', () => {
+      thermostat.down();
+      expect(thermostat.getTemperature()).toBe(21);
+    });
+  });
 });
