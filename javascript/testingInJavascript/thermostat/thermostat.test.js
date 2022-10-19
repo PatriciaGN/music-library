@@ -8,4 +8,12 @@ describe('Thermostat', () => {
       expect(thermostat.getTemperature()).toBe(20);
     });
   });
+
+  describe('up', () => {
+    it('should give a temperature of 22 when the up method has been called twice', () => {
+      thermostat.up();
+      thermostat.up();
+      expect(thermostat.getTemperature()).toBe(22);
+    });
+  });
 });
