@@ -45,4 +45,11 @@ describe('Thermostat', () => {
       expect(thermostat.getTemperature()).toBe(32);
     });
   });
+
+  describe('reset', () => {
+    it('resets the temperature to the default value', () => {
+      thermostat.reset();
+      expect(thermostat.getTemperature()).toBe(20);
+    });
+  });
 });
